@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Create Album</title>
+    </head>
+    <body>
+    {% if album_list %}
+        <ul>
+        {% for document in album_list %}
+            <img src="/media/folder.png" style="width:64px;height:64px;">
+            <li><a href="{% url 'upload' user_id document.album_name %}">{{ document.album_name }}</a></li>
+            <form action="/delete_album/" method="post">
+                <p><input type='hidden' name="id" value="{{ document.album_id }}"/></p>
+                <p><input type='hidden' name="user_id" value="{{ document.user.user_id }}"/></p>
+                <input type='submit' value='Delete'>
+            </form>
+            <!--<var>"document.album.name"</var>-->
+        {% endfor %}
+        </ul>
+    {% else %}
+         <p>No albums.</p>
+    {% endif %}
+    </form>
+        <form action="{% url 'create_album' user_id %}" method='post'>
+            <div >
+                <label for='name'> Album name </label>
+                <input type='text' name='name' value="{{ name }}" required>
+                <input type='submit' value='Create' >
+             </div>
+        </form>
+    </body>
+</html>
